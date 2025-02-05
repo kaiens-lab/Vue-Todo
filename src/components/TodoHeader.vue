@@ -26,10 +26,10 @@ const toggleTheme = () => {
       <button class="btn btn--theme" @click="toggleTheme">
         <img
           v-if="props.isDarkMode"
-          src="../../public/images/icon-moon.svg"
+          src="../../public/images/icon-sun.svg"
           alt="moonIcon"
         />
-        <img v-else src="../../public/images/icon-sun.svg" alt="sunIcon" />
+        <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
       </button>
     </section>
 
