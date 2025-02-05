@@ -68,7 +68,7 @@ const completedTodos = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
+  background: #fafafa;
   padding: 2rem 1rem;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
