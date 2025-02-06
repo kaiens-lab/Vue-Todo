@@ -8,8 +8,8 @@ import TodoList from "./components/TodoList.vue";
 import TodoFilter from "./components/TodoFilter.vue";
 import AppFooter from "./components/AppFooter.vue";
 
-const todoStore = useTodoStore(); // 先初始化 Pinia store
-const { todos } = storeToRefs(todoStore); // 再取出 todos
+const todoStore = useTodoStore();
+const { todos } = storeToRefs(todoStore);
 const { filteredTodos, filterStatus, itemsLeft } = storeToRefs(todoStore);
 const {
   handleFilterChange,
@@ -21,14 +21,6 @@ const {
 
 const themeStore = useThemeStore();
 themeStore.toggleDarkMode();
-
-// const itemsLeft = computed(() => {
-//   return todos.value.filter((todo) => !todo.isCompleted).length;
-// });
-
-// const clearCompleted = () => {
-//   todos.value = todos.value.filter((todo) => todo.isCompleted == false);
-// };
 </script>
 
 <template>

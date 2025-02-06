@@ -21,7 +21,7 @@ export const useThemeStore = defineStore("theme", () => {
   watch(
     isDarkMode,
     (newValue) => {
-      console.log("Theme updated:", newValue ? "darkTheme" : "lightTheme"); // Debug log
+      console.log("Theme updated:", newValue ? "darkTheme" : "lightTheme");
       document.body.setAttribute(
         "data-theme",
         newValue ? "darkTheme" : "lightTheme"
