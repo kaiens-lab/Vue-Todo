@@ -1,12 +1,11 @@
-<!-- <script setup>
-import { computed, ref } from "vue";
+<script setup>
 import { storeToRefs } from "pinia";
-import { useTodoStore } from "./stores/todoStore";
-import { useThemeStore } from "./stores/darkModeStore";
-import TodoHeader from "./components/TodoHeader.vue";
-import TodoList from "./components/TodoList.vue";
-import TodoFilter from "./components/TodoFilter.vue";
-import AppFooter from "./components/AppFooter.vue";
+import { useTodoStore } from "../stores/todoStore";
+import { useThemeStore } from "../stores/darkModeStore";
+import TodoHeader from "./TodoHeader.vue";
+import TodoList from "./TodoList.vue";
+import TodoFilter from "./TodoFilter.vue";
+import AppFooter from "./AppFooter.vue";
 
 const todoStore = useTodoStore();
 const { todos } = storeToRefs(todoStore);
@@ -49,6 +48,7 @@ themeStore.toggleDarkMode();
       </main>
     </div>
     <AppFooter />
+    <router-view />
   </div>
 </template>
 
@@ -60,7 +60,7 @@ themeStore.toggleDarkMode();
 .main__container {
   width: 100vw;
   min-height: 100vh;
-  background: url("../public/images/bg-desktop-light.jpg");
+  background: url("/images/bg-desktop-light.jpg");
   background-color: #fafafa;
   background-repeat: no-repeat;
   background-size: contain;
@@ -71,7 +71,7 @@ themeStore.toggleDarkMode();
 }
 
 [data-theme="darkTheme"] .main__container {
-  background: url("../public/images/bg-desktop-dark.jpg");
+  background: url("/images/bg-desktop-dark.jpg");
   background-color: #171823;
   background-repeat: no-repeat;
   background-size: contain;
@@ -109,14 +109,14 @@ themeStore.toggleDarkMode();
 @media (max-width: 738px) {
   .main__container {
     padding: 0 15%;
-    background: url("../public/images/bg-mobile-light.jpg");
+    background: url("/images/bg-mobile-light.jpg");
     background-color: #fafafa;
     background-repeat: no-repeat;
     background-size: contain;
   }
 
   [data-theme="darkTheme"] .main__container {
-    background: url("../public/images/bg-mobile-dark.jpg");
+    background: url("/images/bg-mobile-dark.jpg");
     background-color: #171823;
     background-repeat: no-repeat;
     background-size: contain;
@@ -127,12 +127,4 @@ themeStore.toggleDarkMode();
     min-width: 327px;
   }
 }
-</style> -->
-
-<script setup>
-import { RouterView } from "vue-router";
-</script>
-<template>
-  <router-view />
-</template>
-<style scoped></style>
+</style>
