@@ -10,20 +10,25 @@ import AppFooter from "./components/AppFooter.vue";
 
 const todoStore = useTodoStore(); // 先初始化 Pinia store
 const { todos } = storeToRefs(todoStore); // 再取出 todos
-const { filteredTodos, filterStatus } = storeToRefs(todoStore);
-const { handleFilterChange, handleAddTodo, removeTodo, toggleTodoStatus } =
-  todoStore;
+const { filteredTodos, filterStatus, itemsLeft } = storeToRefs(todoStore);
+const {
+  handleFilterChange,
+  handleAddTodo,
+  removeTodo,
+  toggleTodoStatus,
+  clearCompleted,
+} = todoStore;
 
 const themeStore = useThemeStore();
 themeStore.toggleDarkMode();
 
-const itemsLeft = computed(() => {
-  return todos.value.filter((todo) => !todo.isCompleted).length;
-});
+// const itemsLeft = computed(() => {
+//   return todos.value.filter((todo) => !todo.isCompleted).length;
+// });
 
-const clearCompleted = () => {
-  todos.value = todos.value.filter((todo) => todo.isCompleted == false);
-};
+// const clearCompleted = () => {
+//   todos.value = todos.value.filter((todo) => todo.isCompleted == false);
+// };
 </script>
 
 <template>

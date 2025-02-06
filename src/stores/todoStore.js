@@ -26,6 +26,8 @@ export const useTodoStore = defineStore("todoStore", {
       }
       return state.todos;
     },
+    itemsLeft: (state) =>
+      state.todos.filter((todo) => !todo.isCompleted).length,
   },
 
   actions: {
@@ -46,6 +48,9 @@ export const useTodoStore = defineStore("todoStore", {
       if (todo) {
         todo.isCompleted = !todo.isCompleted;
       }
+    },
+    clearCompleted() {
+      this.todos = this.todos.filter((todo) => !todo.isCompleted);
     },
   },
 });
