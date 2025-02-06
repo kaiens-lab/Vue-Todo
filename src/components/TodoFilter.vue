@@ -62,7 +62,7 @@ const completedTodos = () => {
 }
 
 .todoFilter {
-  background: transparent;
+  background: #fafafa;
   padding: 1rem;
   display: inline-block;
   align-items: center;
@@ -96,6 +96,9 @@ const completedTodos = () => {
 
   [data-theme="darkTheme"] .todoFilter {
   background: #25273d;
+
+
+
 
 }
 
