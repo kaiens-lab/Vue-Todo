@@ -32,5 +32,20 @@ export const useTodoStore = defineStore("todoStore", {
     handleFilterChange(status) {
       this.filterStatus = status;
     },
+
+    handleAddTodo(newTodo) {
+      this.todos.push({ text: newTodo, id: Date.now(), isCompleted: false });
+    },
+
+    removeTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
+    },
+
+    toggleTodoStatus(id) {
+      const todo = this.todos.find((todo) => todo.id === id);
+      if (todo) {
+        todo.isCompleted = !todo.isCompleted;
+      }
+    },
   },
 });

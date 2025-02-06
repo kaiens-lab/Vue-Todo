@@ -11,47 +11,33 @@ import AppFooter from "./components/AppFooter.vue";
 const todoStore = useTodoStore(); // 先初始化 Pinia store
 const { todos } = storeToRefs(todoStore); // 再取出 todos
 const { filteredTodos, filterStatus } = storeToRefs(todoStore);
-const { handleFilterChange } = todoStore;
+const { handleFilterChange, handleAddTodo, removeTodo, toggleTodoStatus } =
+  todoStore;
 
 const themeStore = useThemeStore();
 themeStore.toggleDarkMode();
 
 const isDarkMode = ref(false);
-// const filterStatus = ref("all");
 
-const handleAddTodo = (newTodo) => {
-  todos.value.push({ text: newTodo, id: Date.now(), isCompleted: false });
-  // console.log(todos);
-};
+// const handleAddTodo = (newTodo) => {
+//   todos.value.push({ text: newTodo, id: Date.now(), isCompleted: false });
+//   // console.log(todos);
+// };
 
-const removeTodo = (id) => {
-  todos.value = todos.value.filter((todo) => todo.id !== id);
-};
+// const removeTodo = (id) => {
+//   todos.value = todos.value.filter((todo) => todo.id !== id);
+// };
 
-const toggleTodoStatus = (id) => {
-  const todo = todos.value.find((todo) => todo.id === id);
-  if (todo) {
-    todo.isCompleted = !todo.isCompleted;
-  }
-};
+// const toggleTodoStatus = (id) => {
+//   const todo = todos.value.find((todo) => todo.id === id);
+//   if (todo) {
+//     todo.isCompleted = !todo.isCompleted;
+//   }
+// };
 
 const itemsLeft = computed(() => {
   return todos.value.filter((todo) => !todo.isCompleted).length;
 });
-
-// const filteredTodos = computed(() => {
-//   if (filterStatus.value == "active") {
-//     return todos.value.filter((todo) => todo.isCompleted == false);
-//   } else if (filterStatus.value == "completed") {
-//     return todos.value.filter((todo) => todo.isCompleted == true);
-//   } else {
-//     return todos.value;
-//   }
-// });
-
-// const handleFilterChange = (status) => {
-//   filterStatus.value = status;
-// };
 
 const clearCompleted = () => {
   todos.value = todos.value.filter((todo) => todo.isCompleted == false);
