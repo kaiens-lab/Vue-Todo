@@ -73,6 +73,10 @@ const completedTodos = () => {
   color: #9495a5;
 }
 
+[data-theme="darkTheme"] .todoFilter {
+  background: transparent;
+}
+
 .todoFilter label {
   background: transparent;
   margin: 0 0.8rem;
