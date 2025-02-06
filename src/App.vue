@@ -10,37 +10,23 @@ import AppFooter from "./components/AppFooter.vue";
 
 const todoStore = useTodoStore(); // 先初始化 Pinia store
 const { todos } = storeToRefs(todoStore); // 再取出 todos
+const { filteredTodos, filterStatus } = storeToRefs(todoStore);
+const { handleFilterChange } = todoStore;
 
 const themeStore = useThemeStore();
 themeStore.toggleDarkMode();
 
-// const todos = ref([
-//   { id: 1, text: "Complete online JavaScript course", isCompleted: true },
-//   { id: 2, text: "Jog around the park 3x", isCompleted: false },
-//   { id: 3, text: "10 minutes meditation", isCompleted: false },
-//   { id: 4, text: "Read for 1 hour", isCompleted: false },
-//   { id: 5, text: "Pick up groceries", isCompleted: false },
-//   { id: 6, text: "Complete Todo App on Frontend Mentor", isCompleted: false },
-// ]);
 const isDarkMode = ref(false);
-const filterStatus = ref("all");
+// const filterStatus = ref("all");
 
 const handleAddTodo = (newTodo) => {
-  todos.value.push({ text: newTodo, id: Date.now(), isCompleted: false }); // 新增待辦項目，id為現在時間戳
+  todos.value.push({ text: newTodo, id: Date.now(), isCompleted: false });
   // console.log(todos);
 };
 
 const removeTodo = (id) => {
   todos.value = todos.value.filter((todo) => todo.id !== id);
 };
-
-// const toggleDarkMode = () => {
-//   isDarkMode.value = !isDarkMode.value; // 切換模式
-//   document.body.setAttribute(
-//     "data-theme",
-//     isDarkMode.value ? "darkTheme" : "lightTheme"
-//   ); // 切換全局樣式
-// };
 
 const toggleTodoStatus = (id) => {
   const todo = todos.value.find((todo) => todo.id === id);
@@ -53,25 +39,25 @@ const itemsLeft = computed(() => {
   return todos.value.filter((todo) => !todo.isCompleted).length;
 });
 
-const filteredTodos = computed(() => {
-  if (filterStatus.value == "active") {
-    return todos.value.filter((todo) => todo.isCompleted == false);
-  } else if (filterStatus.value == "completed") {
-    return todos.value.filter((todo) => todo.isCompleted == true);
-  } else {
-    return todos.value;
-  }
-});
+// const filteredTodos = computed(() => {
+//   if (filterStatus.value == "active") {
+//     return todos.value.filter((todo) => todo.isCompleted == false);
+//   } else if (filterStatus.value == "completed") {
+//     return todos.value.filter((todo) => todo.isCompleted == true);
+//   } else {
+//     return todos.value;
+//   }
+// });
 
-const handleFilterChange = (status) => {
-  filterStatus.value = status;
-};
+// const handleFilterChange = (status) => {
+//   filterStatus.value = status;
+// };
 
 const clearCompleted = () => {
   todos.value = todos.value.filter((todo) => todo.isCompleted == false);
 };
 </script>
-<!--@toggleTheme="toggleDarkMode"-->
+
 <template>
   <div class="main__container">
     <div class="todo">
@@ -85,7 +71,7 @@ const clearCompleted = () => {
         <TodoList
           @remove-todo="removeTodo"
           @toggle-todo="toggleTodoStatus"
-          :todos="filteredTodos"
+          :todos="todoStore.filteredTodos"
           :itemsLeft="itemsLeft"
           :clear-completed="clearCompleted"
         />

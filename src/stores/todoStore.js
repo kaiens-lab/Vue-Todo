@@ -14,5 +14,23 @@ export const useTodoStore = defineStore("todoStore", {
         isCompleted: false,
       },
     ],
+    filterStatus: "all", // "all" | "active" | "completed"
   }),
+
+  getters: {
+    filteredTodos: (state) => {
+      if (state.filterStatus === "active") {
+        return state.todos.filter((todo) => !todo.isCompleted);
+      } else if (state.filterStatus === "completed") {
+        return state.todos.filter((todo) => todo.isCompleted);
+      }
+      return state.todos;
+    },
+  },
+
+  actions: {
+    handleFilterChange(status) {
+      this.filterStatus = status;
+    },
+  },
 });
