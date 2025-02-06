@@ -17,24 +17,6 @@ const { handleFilterChange, handleAddTodo, removeTodo, toggleTodoStatus } =
 const themeStore = useThemeStore();
 themeStore.toggleDarkMode();
 
-const isDarkMode = ref(false);
-
-// const handleAddTodo = (newTodo) => {
-//   todos.value.push({ text: newTodo, id: Date.now(), isCompleted: false });
-//   // console.log(todos);
-// };
-
-// const removeTodo = (id) => {
-//   todos.value = todos.value.filter((todo) => todo.id !== id);
-// };
-
-// const toggleTodoStatus = (id) => {
-//   const todo = todos.value.find((todo) => todo.id === id);
-//   if (todo) {
-//     todo.isCompleted = !todo.isCompleted;
-//   }
-// };
-
 const itemsLeft = computed(() => {
   return todos.value.filter((todo) => !todo.isCompleted).length;
 });
