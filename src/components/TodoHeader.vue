@@ -2,12 +2,14 @@
 import { ref } from "vue";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { useRouter } from "vue-router";
 
 const inputValue = ref("");
 const emit = defineEmits(["addTodo", "toggleTheme"]);
 const props = defineProps({
   isDarkMode: Boolean,
 });
+const router = useRouter();
 
 const submitTodo = () => {
   if (inputValue.value.trim() !== "") {
@@ -23,6 +25,8 @@ const toggleTheme = () => {
 const logout = async () => {
   await signOut(auth);
   console.log("已登出");
+  alert("您已成功登出");
+  router.push("/");
 };
 </script>
 
