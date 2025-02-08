@@ -29,7 +29,7 @@ const logout = async () => {
 <template>
   <header class="header">
     <section class="logo">
-      <h2 class="logo__title">TODO</h2>
+      <h2 class="logo__title text-white font-bold">TODO</h2>
       <button class="btn btn--theme" @click="toggleTheme">
         <img
           v-if="props.isDarkMode"
@@ -39,7 +39,7 @@ const logout = async () => {
         <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
       </button>
     </section>
-    <div class="user__bar">
+    <div class="user__bar text-softWhite">
       <div class="logOut__btn" @click="logout()">Log out</div>
       <div class="user__name">___'s TodoList</div>
     </div>
@@ -89,8 +89,6 @@ const logout = async () => {
 }
 
 .logo__title {
-  color: white;
-  font-weight: bold;
   font-size: 3rem;
   line-height: 4rem;
   letter-spacing: 15px;
@@ -134,7 +132,6 @@ todoInput::-webkit-input-placeholder {
 }
 
 .user__bar {
-  color: #fafafa;
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;

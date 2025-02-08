@@ -8,10 +8,6 @@ const password = ref("");
 
 const loginUser = async () => {
   try {
-    if (!email.value || !password.value) {
-      console.error("請輸入 Email 和密碼！");
-      return;
-    }
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email.value,
@@ -19,7 +15,11 @@ const loginUser = async () => {
     );
     console.log("登入成功:", userCredential.user);
   } catch (error) {
-    console.error("登入錯誤:", error.message);
+    if (error.code === "auth/invalid-credential") {
+      alert("帳號或密碼錯誤，請檢查輸入內容！");
+    } else {
+      console.error("登入錯誤:", error.message);
+    }
   }
 };
 </script>
@@ -28,16 +28,18 @@ const loginUser = async () => {
     <div class="main__container">
       <h2 class="login__title">LOGIN</h2>
       <div class="login__container">
-        <p class="space-10">Email</p>
-        <input v-model="email" class="textInput space-10" placeholder="Email" />
-        <p class="space-10">PassWord</p>
+        <p class="mb-2">Email</p>
+        <input v-model="email" class="textInput mb-4" placeholder="Email" />
+        <p class="mb-2">PassWord</p>
         <input
           v-model="password"
           class="textInput"
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn">Log in</button>
+        <button class="login__btn bg-indigo-500 mb-2" @click="loginUser">
+          Log in
+        </button>
         <p>New here? Join Now</p>
       </div>
     </div>
@@ -116,7 +118,6 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6559cc;
   color: #fafafa;
   width: 100%;
   border-radius: 10px;
