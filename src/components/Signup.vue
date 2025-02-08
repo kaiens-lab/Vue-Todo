@@ -1,18 +1,24 @@
 <script setup>
 import { ref } from "vue";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../firebase";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const username = ref("");
 const password = ref("");
+const router = useRouter();
 
-const registerUser = async (email, password) => {
+const registerUser = async () => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      email,
-      password
+      email.value,
+      password.value
     );
 
     await updateProfile(userCredential.user, {
@@ -20,6 +26,13 @@ const registerUser = async (email, password) => {
     });
 
     console.log("註冊成功:", userCredential.user);
+
+    //立即登出，確保用戶不會保持登入狀態
+    await signOut(auth);
+    console.log("已登出，請使用者手動登入");
+
+    alert("註冊成功! 現在您可以登入了");
+    router.push("/");
   } catch (error) {
     console.error("註冊錯誤:", error.message);
   }
@@ -46,9 +59,7 @@ const registerUser = async (email, password) => {
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn" @click="registerUser()">
-          Join Todo App
-        </button>
+        <button class="login__btn" @click="registerUser">Join Todo App</button>
       </div>
     </div>
   </div>
