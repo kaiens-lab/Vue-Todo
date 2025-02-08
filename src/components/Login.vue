@@ -2,9 +2,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const router = useRouter();
 
 const loginUser = async () => {
   try {
@@ -14,6 +16,7 @@ const loginUser = async () => {
       password.value
     );
     console.log("登入成功:", userCredential.user);
+    router.push("/todolist");
   } catch (error) {
     if (error.code === "auth/invalid-credential") {
       alert("帳號或密碼錯誤，請檢查輸入內容！");
@@ -21,6 +24,10 @@ const loginUser = async () => {
       console.error("登入錯誤:", error.message);
     }
   }
+};
+
+const toSignUp = () => {
+  router.push("/signup");
 };
 </script>
 <template>
@@ -37,10 +44,10 @@ const loginUser = async () => {
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn bg-indigo-500 mb-2" @click="loginUser">
+        <button class="login__btn bg-indigo-500 mb-2" @click="loginUser()">
           Log in
         </button>
-        <p>New here? Join Now</p>
+        <p @click="toSignUp()">New here? Join Now</p>
       </div>
     </div>
   </div>
