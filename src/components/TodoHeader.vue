@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const inputValue = ref("");
 const emit = defineEmits(["addTodo", "toggleTheme"]);
@@ -17,6 +19,11 @@ const submitTodo = () => {
 const toggleTheme = () => {
   emit("toggleTheme");
 };
+
+const logout = async () => {
+  await signOut(auth);
+  console.log("已登出");
+};
 </script>
 
 <template>
@@ -32,7 +39,10 @@ const toggleTheme = () => {
         <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
       </button>
     </section>
-
+    <div class="user__bar">
+      <div class="logOut__btn" @click="logout()">Log out</div>
+      <div class="user__name">___'s TodoList</div>
+    </div>
     <div class="todo__header">
       <div class="todo__circle"></div>
 
@@ -121,6 +131,17 @@ todoInput::-webkit-input-placeholder {
 
 [data-theme="darkTheme"] .todo__circle {
   border: 1px solid #393a4b;
+}
+
+.user__bar {
+  color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+
+.logOut__btn {
+  padding-bottom: 10px;
 }
 
 @media (max-width: 738px) {
