@@ -1,7 +1,11 @@
 <script setup>
 import { onAuthStateChanged } from "firebase/auth";
+import { useUserStore } from "./stores/userStore";
 import { auth } from "./firebase";
 import { RouterView } from "vue-router";
+
+const userStore = useUserStore();
+userStore.initAuthListener();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
