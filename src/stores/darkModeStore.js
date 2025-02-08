@@ -2,10 +2,7 @@ import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
 export const useThemeStore = defineStore("theme", () => {
-  // 根據使用者系統預設主題
-  const isDarkMode = ref(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  const isDarkMode = ref(false);
 
   const toggleDarkMode = () => {
     isDarkMode.value = !isDarkMode.value;
