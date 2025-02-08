@@ -24,7 +24,6 @@ const registerUser = async () => {
     await updateProfile(userCredential.user, {
       displayName: username.value,
     });
-
     console.log("註冊成功:", userCredential.user);
 
     //立即登出，確保用戶不會保持登入狀態
