@@ -1,35 +1,44 @@
 <script setup>
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { ref } from "vue";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebase";
 
 const email = ref("");
+const username = ref("");
 const password = ref("");
 
-const loginUser = async () => {
+const registerUser = async (email, password) => {
   try {
-    if (!email.value || !password.value) {
-      console.error("請輸入 Email 和密碼！");
-      return;
-    }
-    const userCredential = await signInWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
-      email.value,
-      password.value
+      email,
+      password
     );
-    console.log("登入成功:", userCredential.user);
+
+    await updateProfile(userCredential.user, {
+      displayName: username.value,
+    });
+
+    console.log("註冊成功:", userCredential.user);
   } catch (error) {
-    console.error("登入錯誤:", error.message);
+    console.error("註冊錯誤:", error.message);
   }
 };
 </script>
+
 <template>
   <div>
     <div class="main__container">
-      <h2 class="login__title">LOGIN</h2>
+      <h2 class="signup__title">SIGN UP</h2>
       <div class="login__container">
         <p class="space-10">Email</p>
         <input v-model="email" class="textInput space-10" placeholder="Email" />
+        <p class="space-10">Username</p>
+        <input
+          v-model="username"
+          class="textInput space-10"
+          placeholder="Username"
+        />
         <p class="space-10">PassWord</p>
         <input
           v-model="password"
@@ -37,17 +46,14 @@ const loginUser = async () => {
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn">Log in</button>
-        <p>New here? Join Now</p>
+        <button class="login__btn" @click="registerUser()">
+          Join Todo App
+        </button>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-[data-theme="darkTheme"] {
-  color: #c8cbe7;
-}
-
 .main__container {
   width: 100vw;
   min-height: 100vh;
@@ -69,7 +75,7 @@ const loginUser = async () => {
   background-size: contain;
 }
 
-.login__title {
+.signup__title {
   position: absolute;
   top: 6%;
   left: 30%;
@@ -123,22 +129,5 @@ input:focus {
   padding: 10px;
   border: none;
   margin-top: 20px;
-}
-
-@media (max-width: 738px) {
-  .main__container {
-    padding: 0 15%;
-    background: url("/images/bg-mobile-light.jpg");
-    background-color: #fafafa;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  [data-theme="darkTheme"] .main__container {
-    background: url("/images/bg-mobile-dark.jpg");
-    background-color: #171823;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
 }
 </style>
