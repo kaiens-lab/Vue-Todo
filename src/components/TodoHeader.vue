@@ -1,15 +1,18 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/userStore";
 
 const inputValue = ref("");
 const emit = defineEmits(["addTodo", "toggleTheme"]);
 const props = defineProps({
   isDarkMode: Boolean,
+  username: String,
 });
 const router = useRouter();
+const userStore = useUserStore();
 
 const submitTodo = () => {
   if (inputValue.value.trim() !== "") {
@@ -28,6 +31,15 @@ const logout = async () => {
   alert("您已成功登出");
   router.push("/");
 };
+
+// onMounted(() => {
+//   userStore.fetchUser();
+// });
+
+// const test = () => {
+//   console.log("傳遞的 username:", userStore.username);
+//   console.log("目前登入使用者的 displayName:", auth.currentUser?.displayName);
+// };
 </script>
 
 <template>
@@ -44,8 +56,8 @@ const logout = async () => {
       </button>
     </section>
     <div class="user__bar text-softWhite">
-      <div class="logOut__btn" @click="logout()">Log out</div>
-      <div class="user__name">___'s TodoList</div>
+      <div class="logOut__btn pb-2" @click="logout()">Log out</div>
+      <div class="user__name">{{ userStore.username }}'s TodoList</div>
     </div>
     <div class="todo__header">
       <div class="todo__circle"></div>
@@ -142,7 +154,7 @@ todoInput::-webkit-input-placeholder {
 }
 
 .logOut__btn {
-  padding-bottom: 10px;
+  width: 15%;
 }
 
 @media (max-width: 738px) {
