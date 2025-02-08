@@ -8,8 +8,8 @@ import TodoFilter from "./TodoFilter.vue";
 import AppFooter from "./AppFooter.vue";
 
 const todoStore = useTodoStore();
-const { todos } = storeToRefs(todoStore);
-const { filteredTodos, filterStatus, itemsLeft } = storeToRefs(todoStore);
+const { todos, filteredTodos, filterStatus, itemsLeft } =
+  storeToRefs(todoStore);
 const {
   handleFilterChange,
   handleAddTodo,
@@ -19,7 +19,7 @@ const {
 } = todoStore;
 
 const themeStore = useThemeStore();
-themeStore.toggleDarkMode();
+// themeStore.toggleDarkMode();
 </script>
 
 <template>
