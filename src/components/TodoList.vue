@@ -14,10 +14,6 @@ const removeTodo = (id) => {
 const toggleCompleted = (id) => {
   emit("toggle-todo", id);
 };
-
-const completedTodos = () => {
-  emit("filterStatus", "completed");
-};
 </script>
 
 <template>
