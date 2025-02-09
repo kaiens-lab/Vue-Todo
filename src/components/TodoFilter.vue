@@ -69,7 +69,7 @@ const completedTodos = () => {
   border-radius: 5px;
   position: relative;
   left: 45%;
-  transform: translate(-50%, -120%);
+  transform: translate(-50%, -110%);
   color: #9495a5;
 }
 
