@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import AppFooter from "./AppFooter.vue";
 
 const email = ref("");
 const password = ref("");
@@ -51,6 +52,7 @@ const toSignUp = () => {
       </div>
     </div>
   </div>
+  <AppFooter />
 </template>
 <style scoped>
 [data-theme="darkTheme"] {
