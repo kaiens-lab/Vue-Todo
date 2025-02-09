@@ -1,32 +1,24 @@
 import { defineStore } from "pinia";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
-export const useThemeStore = defineStore("theme", () => {
-  const isDarkMode = ref(false);
+export const useThemeStore = defineStore("theme", {
+  state: () => ({
+    isDarkMode: false,
+  }),
+  actions: {
+    toggleDarkMode() {
+      this.isDarkMode = !this.isDarkMode;
 
-  const toggleDarkMode = () => {
-    isDarkMode.value = !isDarkMode.value;
+      document.body.setAttribute(
+        "data-theme",
+        this.isDarkMode ? "darkTheme" : "lightTheme"
+      );
 
-    document.body.setAttribute(
-      "data-theme",
-      isDarkMode.value ? "darkTheme" : "lightTheme"
-    );
-
-    if (isDarkMode.value) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  };
-
-  document.body.setAttribute(
-    "data-theme",
-    isDarkMode.value ? "darkTheme" : "lightTheme"
-  );
-
-  if (isDarkMode.value) {
-    document.body.classList.add("dark");
-  }
-
-  return { isDarkMode, toggleDarkMode };
+      if (this.isDarkMode) {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
+    },
+  },
 });
