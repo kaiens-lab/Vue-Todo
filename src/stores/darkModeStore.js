@@ -6,26 +6,27 @@ export const useThemeStore = defineStore("theme", () => {
 
   const toggleDarkMode = () => {
     isDarkMode.value = !isDarkMode.value;
+
+    document.body.setAttribute(
+      "data-theme",
+      isDarkMode.value ? "darkTheme" : "lightTheme"
+    );
+
+    if (isDarkMode.value) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
   };
 
-  // 初始化時強制同步data-theme
   document.body.setAttribute(
     "data-theme",
     isDarkMode.value ? "darkTheme" : "lightTheme"
   );
 
-  // 監聽isDarkMode並動態更新
-  watch(
-    isDarkMode,
-    (newValue) => {
-      console.log("Theme updated:", newValue ? "darkTheme" : "lightTheme");
-      document.body.setAttribute(
-        "data-theme",
-        newValue ? "darkTheme" : "lightTheme"
-      );
-    },
-    { immediate: true }
-  );
+  if (isDarkMode.value) {
+    document.body.classList.add("dark");
+  }
 
   return { isDarkMode, toggleDarkMode };
 });
