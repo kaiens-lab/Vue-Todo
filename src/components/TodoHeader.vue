@@ -86,10 +86,14 @@ const logout = async () => {
 }
 
 .todo-circle {
-  @apply w-6 h-6 bg-transparent rounded-full;
+  @apply w-6 h-6 bg-transparent rounded-full border border-light-border mr-4;
 }
 
 .todo-input {
-  @apply text-light-text dark:text-dark-text placeholder-light-text dark:placeholder-dark-text;
+  @apply text-light-text  placeholder-light-text dark:bg-dark-primary dark:placeholder-dark-border dark:text-dark-text;
+}
+
+.todo-input:focus {
+  @apply outline-none;
 }
 </style>
