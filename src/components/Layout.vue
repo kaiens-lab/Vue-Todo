@@ -1,32 +1,28 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useTodoStore } from "../stores/todoStore";
 import { useThemeStore } from "../stores/darkModeStore";
+import { useTodoStore } from "../stores/todoStore";
+
 import TodoHeader from "./TodoHeader.vue";
 import TodoList from "./TodoList.vue";
 import TodoFilter from "./TodoFilter.vue";
 import AppFooter from "./AppFooter.vue";
 
 const todoStore = useTodoStore();
-const { todos, filteredTodos, filterStatus, itemsLeft } =
-  storeToRefs(todoStore);
-const {
-  handleFilterChange,
-  handleAddTodo,
-  removeTodo,
-  toggleTodoStatus,
-  clearCompleted,
-} = todoStore;
+
+const { todos, filterStatus, itemsLeft } = storeToRefs(todoStore);
+
+const { handleFilterChange, removeTodo, toggleTodoStatus, clearCompleted } =
+  todoStore;
 
 const themeStore = useThemeStore();
-// themeStore.toggleDarkMode();
 </script>
 
 <template>
   <div class="main__container">
     <div class="todo">
       <TodoHeader
-        @addTodo="handleAddTodo"
+        @addTodo="todoStore.addTodo"
         :isDarkMode="themeStore.isDarkMode"
         @toggleTheme="themeStore.toggleDarkMode"
       />
