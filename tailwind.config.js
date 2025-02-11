@@ -7,7 +7,7 @@ export default {
         light: {
           bg: "#fafafa",
           border: "#e3e4f1",
-          text: "#494C6B",
+          text: "#9495A5",
         },
         dark: {
           bg: "#171823",
