@@ -4,12 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        softWhite: "#fafafa",
-        steelBlue: "#393a4b",
-        formBackground: "#25273d",
-      },
-      screens: {
-        xs: "738px",
+        light: {
+          bg: "#fafafa",
+          border: "#e3e4f1",
+          text: "#494C6B",
+        },
+        dark: {
+          bg: "#171823",
+          primary: "#25273d",
+          border: "#393a4b",
+          text: "#C8CBE7",
+        },
       },
     },
   },
