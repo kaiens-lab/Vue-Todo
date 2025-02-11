@@ -36,14 +36,17 @@ const logout = async () => {
 <template>
   <header class="header">
     <section
-      class="flex justify-between items-center mt-12 xs:w-full xs:min-w-[327px] xs:mt-10"
+      class="flex justify-between items-center mt-12 xs:w-full xs:mt-10 min-w-[327px]"
     >
       <h2
-        class="text-white font-bold text-[3rem] leading-[4rem] tracking-[15px] xs:text-[2rem]"
+        class="font-bold text-white tracking-[15px] text-[2rem] leading-[4rem]"
       >
         TODO
       </h2>
-      <button class="bg-transparent border-none" @click="toggleTheme">
+      <button
+        class="bg-transparent border-none cursor-pointer p-2 rounded-md"
+        @click="toggleTheme"
+      >
         <img
           v-if="props.isDarkMode"
           src="../../public/images/icon-sun.svg"
@@ -52,24 +55,41 @@ const logout = async () => {
         <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
       </button>
     </section>
-    <div class="flex flex-col text-softWhite text-[1.2rem]">
-      <div class="w-[30%] pb-2" @click="logout()">Log out</div>
+    <div class="flex flex-col text-light-bg text-[1.2rem] mt-4">
+      <div class="w-[30%]" @click="logout()">Log out</div>
       <div>{{ userStore.username }}'s TodoList</div>
     </div>
     <div
-      class="w-full bg-white p-4 xs:p-4 xs:px-6 rounded-md flex items-center mt-12 xs:mt-4 mb-10 border border-[#e3e4f1] dark:bg-[#25273d] dark:border-[#393a4b]"
+      class="todo-input-container dark:bg-dark-primary dark:border-dark-border"
     >
-      <div
-        class="w-6 h-6 border border-[#e3e4f1] rounded-full bg-transparent dark:border-[#393a4b]"
-      ></div>
+      <div class="todo-circle dark:border-[#393a4b]"></div>
 
       <input
         v-model="inputValue"
         type="text"
-        class="focus:outline-none todoInput text-base placeholder:text-[#c4c4c5] border-none font-inherit leading-8 ml-6 bg-transparent dark:placeholder:text-base dark:placeholder:text-[#4d5067]"
+        class="todo-input"
         placeholder="Create a new todo..."
         @keyup.enter="submitTodo"
       />
     </div>
   </header>
 </template>
+<style scope>
+.title-container {
+  @apply flex justify-between items-center;
+  min-width: 327px;
+}
+
+.todo-input-container {
+  @apply w-full p-4 flex items-center border border-light-border bg-light-bg rounded-md 
+         mt-6 mb-8 px-4 sm:px-6 sm:mt-4 sm:mb-10;
+}
+
+.todo-circle {
+  @apply w-6 h-6 bg-transparent rounded-full;
+}
+
+.todo-input {
+  @apply text-light-text dark:text-dark-text placeholder-light-text dark:placeholder-dark-text;
+}
+</style>
