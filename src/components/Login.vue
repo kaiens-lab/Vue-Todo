@@ -90,8 +90,12 @@ const toSignUp = () => {
   background-image: url("/images/bg-desktop-dark.jpg");
 }
 
+.btn-base {
+  @apply flex justify-center items-center cursor-pointer rounded-lg;
+}
+
 .signup-link {
-  @apply flex justify-center cursor-pointer text-light-text hover:text-indigo-500;
+  @apply btn-base text-light-text hover:text-indigo-500;
 }
 
 .login__title {
@@ -104,18 +108,14 @@ const toSignUp = () => {
          dark:bg-dark-primary dark:text-dark-text;
 }
 
-.textInput {
-  @apply w-full h-8 border border-dark-border rounded-md;
-}
-
 .input-field {
-  @apply w-full h-8 px-2 border border-light-border rounded-md 
+  @apply w-full h-8 border rounded-md px-2 border-light-border
          focus:outline focus:outline-1 focus:outline-[#c7c8cd] focus:outline-offset-1 
          dark:bg-dark-primary dark:placeholder-dark-border dark:border-dark-border;
 }
 
 .login__btn {
-  @apply flex justify-center items-center w-full rounded-lg 
+  @apply btn-base w-full
          p-2.5 border-none mt-5 mb-2 text-light-bg bg-indigo-500;
 }
 
