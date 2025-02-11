@@ -24,15 +24,15 @@ const completedTodos = () => {
 <template>
     <div class="todoFilter">
       <label :class="{ btn__active: selectedOption === 'all' }">
-        <input type="radio"  @click="allTodos()" class="btn filterBtn" v-model="selectedOption" value="all" >All</input>
+        <input type="radio"  @click="allTodos()" class="filter-radio" v-model="selectedOption" value="all" >All</input>
       </label>
       
       <label :class="{ btn__active: selectedOption === 'active' }">
-        <input type="radio"  @click="activeTodos()" class="btn filterBtn"  v-model="selectedOption" value="active">Active</input>
+        <input type="radio"  @click="activeTodos()" class="filter-radio" v-model="selectedOption" value="active">Active</input>
       </label>
 
       <label :class="{ btn__active: selectedOption === 'completed' }">
-        <input type="radio"  @click="completedTodos()" class="btn filterBtn"  v-model="selectedOption" value="completed">Completed</input>
+        <input type="radio"  @click="completedTodos()" class="filter-radio" v-model="selectedOption" value="completed" >Completed</input>
       </label>
 
     </div>
@@ -43,48 +43,21 @@ const completedTodos = () => {
   color: #3a7cfd;
 }
 
-.filterBtn {
-  padding: 5px;
-}
-
-.btn {
-  cursor: pointer; 
-  background-color: transparent;
-  border: none;
-  color: #9495a5;
-  font-size: 1rem;
-  line-height: 1rem;
-  font-family: inherit;
-}
-
-.btn--active {
-  color: #3a7cfd;
-}
-
 .todoFilter {
-  background: #fafafa;
-  padding: 1rem;
-  display: inline-block;
-  align-items: center;
-  border-radius: 5px;
-  position: relative;
-  left: 45%;
-  transform: translate(-50%, -110%);
-  color: #9495a5;
-}
-
-[data-theme="darkTheme"] .todoFilter {
-  background: transparent;
+  @apply inline-flex items-center relative p-4 rounded-md 
+         bg-light-bg text-light-text bg-transparent 
+         left-[45%] -translate-x-1/2 -translate-y-[110%] dark:bg-dark-primary ;
 }
 
 .todoFilter label {
-  background: transparent;
-  margin: 0 0.8rem;
+  @apply bg-transparent ml-6 mr-6;
+
 }
 
-.todoFilter input[type="radio"] {
-  display: none;
+.filter-radio {
+  @apply hidden;
 }
+
 
 
 @media (max-width: 738px) {
@@ -97,14 +70,6 @@ const completedTodos = () => {
     padding: 1rem 0rem;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
-
-  [data-theme="darkTheme"] .todoFilter {
-  background: #25273d;
-
-
-
-
-}
 
 }
 </style>
