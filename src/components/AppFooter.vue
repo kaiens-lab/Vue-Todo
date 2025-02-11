@@ -6,38 +6,17 @@ export default {
 };
 </script>
 <template>
-  <footer>
-    <div class="attribution">
+  <footer class="relative w-full py-4 flex justify-center dark:bg-[#171823]">
+    <div class="text-[0.85rem] text-[#393a4b]">
       <p>
         Challenge by
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          class="text-[0.85rem] text-[#393a4b]"
+          target="_blank"
           >Frontend Mentor</a
         >. Coded by <a href="https://github.com/kaiens-lab">KN Chang</a>.
       </p>
     </div>
   </footer>
 </template>
-<style scoped>
-footer {
-  position: relative;
-  width: 100%;
-  padding: 1rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.attribution {
-  font-size: 0.85rem;
-  color: #393a4b;
-}
-
-.attribution a {
-  font-size: 0.85rem;
-  color: #393a4b;
-}
-
-[data-theme="darkTheme"] footer a {
-  color: inherit;
-  font-weight: bold;
-}
-</style>
