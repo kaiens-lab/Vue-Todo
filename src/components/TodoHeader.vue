@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "vue-router";
@@ -43,7 +43,7 @@ const logout = async () => {
       >
         TODO
       </h2>
-      <button class="btn bg-transparent border-none" @click="toggleTheme">
+      <button class="bg-transparent border-none" @click="toggleTheme">
         <img
           v-if="props.isDarkMode"
           src="../../public/images/icon-sun.svg"
@@ -54,7 +54,7 @@ const logout = async () => {
     </section>
     <div class="flex flex-col text-softWhite text-[1.2rem]">
       <div class="w-[30%] pb-2" @click="logout()">Log out</div>
-      <div class="user__name">{{ userStore.username }}'s TodoList</div>
+      <div>{{ userStore.username }}'s TodoList</div>
     </div>
     <div
       class="w-full bg-white p-4 xs:p-4 xs:px-6 rounded-md flex items-center mt-12 xs:mt-4 mb-10 border border-[#e3e4f1] dark:bg-[#25273d] dark:border-[#393a4b]"
@@ -73,104 +73,3 @@ const logout = async () => {
     </div>
   </header>
 </template>
-
-<style scoped>
-/*------Todo Header-----*/
-/* .todo__header {
-  width: 100%;
-  background-color: white; 
-  padding: 1rem 1.5rem;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  margin-top: 3rem;
-  margin-bottom: 2.4rem;
-  border: 1px solid #e3e4f1;
-}*/
-
-/* [data-theme="darkTheme"] .todo__header {
-  background-color: #25273d;
-  border: 1px solid #393a4b;
-} */
-
-/* .logo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 3rem 0 0 0;
-} */
-
-/* .logo__title {
-  font-size: 3rem;
-  line-height: 4rem;
-  letter-spacing: 15px;
-} */
-
-/* .btn--theme {
-  background-color: transparent;
-  border: none;
-} */
-
-/* .todoInput,
-todoInput::-webkit-input-placeholder {
-  font-size: 1rem;
-  color: #393a4b;
-  border: none;
-  font-family: inherit;
-  line-height: 2rem;
-
-  margin-left: 2rem;
-  background: transparent;
-} */
-
-/* .todoInput:focus {
-  outline: none;
-} */
-
-/* .todo__circle {
-  width: 24px;
-  height: 24px;
-  border: 1px solid #e3e4f1;
-  border-radius: 50%;
-  background: transparent;
-}
-
-[data-theme="darkTheme"] .todo__circle {
-  border: 1px solid #393a4b;
-} */
-
-/* .user__bar {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
-} */
-
-/* .logOut__btn {
-  width: 15%;
-} */
-
-/* @media (max-width: 738px) { */
-/* .todo {
-    width: 100%;
-    min-width: 327px;
-  } */
-
-/* .logo {
-    margin: 3.5rem 0 0 0;
-  } */
-
-/* .logo__title {
-    font-size: 2rem;
-  } */
-
-/* .todo__header {
-    padding: 1rem 1.5rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 2.4rem;
-    border: 1px solid #e3e4f1;
-  } */
-/* } */
-</style>
