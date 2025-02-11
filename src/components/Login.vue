@@ -37,10 +37,13 @@ const toSignUp = () => {
 </script>
 <template>
   <div>
-    <div class="main__container" :class="{ dark: isDarkMode }">
-      <div class="titleAndBtn">
+    <div
+      class="main__container flex flex-col items-center bg-light-bg dark:bg-dark-bg"
+      :class="{ dark: isDarkMode }"
+    >
+      <div class="flex items-center">
         <h2 class="login__title">LOGIN</h2>
-        <div class="toggle-btn">
+        <div class="flex mt-8">
           <button
             class="btn bg-transparent border-none"
             @click="themeStore.toggleDarkMode"
@@ -56,136 +59,64 @@ const toSignUp = () => {
       </div>
 
       <div class="login__container">
-        <p class="mb-2">Email</p>
-        <input v-model="email" class="textInput mb-4" placeholder="Email" />
-        <p class="mb-2">PassWord</p>
+        <p class="mb-2 text-[#494C6B] dark:text-light-text">Email</p>
+        <input v-model="email" class="mb-4 input-field" placeholder="Email" />
+        <p class="mb-2 text-[#494C6B] dark:text-light-text">PassWord</p>
         <input
           v-model="password"
-          class="textInput"
+          class="input-field"
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn bg-indigo-500 mb-2" @click="loginUser()">
-          Log in
-        </button>
-        <p @click="toSignUp()" class="invite-msg">New here? Join Now</p>
+        <button class="login__btn" @click="loginUser()">Log in</button>
+        <p @click="toSignUp()" class="signup-link">New here? Join Now</p>
       </div>
     </div>
   </div>
   <AppFooter />
 </template>
 <style scoped>
-[data-theme="darkTheme"] {
-  color: #c8cbe7;
-}
-
 .main__container {
   width: 100vw;
   min-height: 100vh;
-  background: url("/images/bg-desktop-light.jpg");
-  background-color: #fafafa;
+  background-image: url("/images/bg-desktop-light.jpg");
   background-repeat: no-repeat;
   background-size: contain;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   padding-top: 50px;
 }
 
 [data-theme="darkTheme"] .main__container {
-  background: url("/images/bg-desktop-dark.jpg");
-  background-color: #171823;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-image: url("/images/bg-desktop-dark.jpg");
 }
 
-.invite-msg {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
+.signup-link {
+  @apply flex justify-center cursor-pointer text-light-text hover:text-indigo-500;
 }
-
-.titleAndBtn {
-  display: flex;
-  align-items: center;
-}
-
-/* .login__title {
-  position: absolute;
-  top: 6%;
-  left: 30%;
-  color: white;
-  font-weight: bold;
-  font-size: 3rem;
-  line-height: 4rem;
-  letter-spacing: 15px;
-} */
 
 .login__title {
-  display: flex;
-  margin-top: 40px;
-  color: white;
-  font-weight: bold;
-  font-size: 3rem;
-  line-height: 4rem;
-  letter-spacing: 15px;
+  @apply mt-10 text-white font-bold text-[3rem] leading-[4rem] tracking-[15px]
+  sm:text-[1.5rem] sm:mr-5;
 }
 
 .login__container {
-  min-width: 320px;
-  background-color: #fafafa;
-  border-radius: 10px;
-  margin: 0px 10px;
-  padding: 3rem;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-[data-theme="darkTheme"] .login__container {
-  background-color: #25273d;
-  color: #e3e4f1;
-}
-
-.toggle-btn {
-  display: flex;
-  margin-top: 40px;
+  @apply min-w-[320px] bg-light-bg rounded-lg mx-2.5 p-12 shadow-md 
+         dark:bg-dark-primary dark:text-dark-text;
 }
 
 .textInput {
-  border-radius: 5px;
-  border: 1px solid #4d5067;
-  width: 100%;
-  height: 2rem;
+  @apply w-full h-8 border border-dark-border rounded-md;
 }
 
-.space-10 {
-  margin-bottom: 10px;
-}
-
-input {
-  padding: 0 8px;
-}
-
-input:focus {
-  border: none;
-  outline: 1px solid #c7c8cd;
-  outline-offset: 1px;
-}
-
-[data-theme="darkTheme"] input {
-  background-color: #25273d;
+.input-field {
+  @apply w-full h-8 px-2 border border-light-border rounded-md 
+         focus:outline focus:outline-1 focus:outline-[#c7c8cd] focus:outline-offset-1 
+         dark:bg-dark-primary dark:placeholder-dark-border dark:border-dark-border;
 }
 
 .login__btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fafafa;
-  width: 100%;
-  border-radius: 10px;
-  padding: 10px;
-  border: none;
-  margin-top: 20px;
+  @apply flex justify-center items-center w-full rounded-lg 
+         p-2.5 border-none mt-5 mb-2 text-light-bg bg-indigo-500;
 }
 
 @media (max-width: 738px) {
@@ -202,11 +133,6 @@ input:focus {
     background-color: #171823;
     background-repeat: no-repeat;
     background-size: contain;
-  }
-
-  .login__title {
-    font-size: 1.5rem;
-    margin-right: 20px;
   }
 }
 </style>
