@@ -12,7 +12,8 @@ export default {
         dark: {
           bg: "#171823",
           primary: "#25273d",
-          border: "#393a4b",
+          secondary: "#393a4b",
+          border: "#4d5067",
           text: "#C8CBE7",
         },
       },
