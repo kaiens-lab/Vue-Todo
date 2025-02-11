@@ -39,7 +39,7 @@ const logout = async () => {
       class="flex justify-between items-center mt-12 xs:w-full xs:mt-10 min-w-[327px]"
     >
       <h2
-        class="font-bold text-white tracking-[15px] text-[2rem] leading-[4rem]"
+        class="font-bold text-white tracking-[15px] text-[2rem] leading-[4rem] sm:-mt-4"
       >
         TODO
       </h2>
@@ -55,7 +55,7 @@ const logout = async () => {
         <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
       </button>
     </section>
-    <div class="flex flex-col text-light-bg text-[1.2rem] mt-4">
+    <div class="flex flex-col text-light-bg text-[1.2rem] mt-4 sm:mt-0">
       <div class="w-[30%]" @click="logout()">Log out</div>
       <div>{{ userStore.username }}'s TodoList</div>
     </div>
