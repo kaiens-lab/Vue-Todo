@@ -1,29 +1,23 @@
 <script setup>
+import { useTodoStore } from "../stores/todoStore";
 const props = defineProps({
   todos: Array,
   itemsLeft: Number,
   clearCompleted: Function,
 });
 
+const todoStore = useTodoStore();
+
 const emit = defineEmits(["removeTodo", "toggle-todo"]);
-
-const removeTodo = (id) => {
-  emit("removeTodo", id);
-};
-
-const toggleCompleted = (id) => {
-  emit("toggle-todo", id);
-};
 </script>
 
 <template>
+  <div v-if="todoStore.filteredTodos.length === 0" class="remind-msg">
+    No tasks yet, start planning your day now!
+  </div>
   <div class="todo__list">
     <ul>
-      <li
-        v-for="(todo, index) in todos"
-        :key="todo.id"
-        @click="toggleCompleted(todo.id)"
-      >
+      <li v-for="(todo, index) in todoStore.filteredTodos" :key="todo.id">
         <div
           class="todoBtnAndtext"
           :class="{
@@ -35,13 +29,14 @@ const toggleCompleted = (id) => {
             :class="{
               todo__checked: todo.isCompleted,
             }"
+            @click="todoStore.toggleTodoStatus(todo.id)"
           >
             <img src="/images/icon-check.svg" />
           </button>
 
           {{ todo.text }}
         </div>
-        <button class="btn__cross" @click="removeTodo(todo.id)">
+        <button class="btn__cross" @click="todoStore.removeTodo(todo.id)">
           <img src="/images/icon-cross.svg" />
         </button>
       </li>
@@ -59,6 +54,15 @@ const toggleCompleted = (id) => {
 </template>
 
 <style scoped>
+.remind-msg {
+  color: #9495a5;
+  background: transparent;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 .itemsLeftAndClear {
   width: 100%;
   display: flex;
