@@ -7,11 +7,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useThemeStore } from "../stores/darkModeStore";
 
 const email = ref("");
 const username = ref("");
 const password = ref("");
 const router = useRouter();
+const themeStore = useThemeStore();
+const { isDarkMode } = storeToRefs(themeStore);
 
 const registerUser = async () => {
   try {
@@ -36,13 +40,32 @@ const registerUser = async () => {
     console.error("註冊錯誤:", error.message);
   }
 };
+const toLogin = () => {
+  router.push("/");
+};
 </script>
 
 <template>
   <div>
     <div class="main__container">
-      <h2 class="signup__title">SIGN UP</h2>
-      <div class="login__container">
+      <div class="titleAndBtn">
+        <h2 class="signup__title">SIGN UP</h2>
+        <div class="toggle-btn">
+          <button
+            class="btn bg-transparent border-none"
+            @click="themeStore.toggleDarkMode"
+          >
+            <img
+              v-if="isDarkMode"
+              src="../../public/images/icon-sun.svg"
+              alt="moonIcon"
+            />
+            <img v-else src="../../public/images/icon-moon.svg" alt="sunIcon" />
+          </button>
+        </div>
+      </div>
+
+      <div class="signUp__container">
         <p class="space-10">Email</p>
         <input v-model="email" class="textInput space-10" placeholder="Email" />
         <p class="space-10">Username</p>
@@ -58,7 +81,8 @@ const registerUser = async () => {
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn" @click="registerUser">Join Todo App</button>
+        <button class="join__btn" @click="registerUser">Join Todo App</button>
+        <p @click="toLogin()" class="back-msg">Return to Login</p>
       </div>
     </div>
   </div>
@@ -85,10 +109,27 @@ const registerUser = async () => {
   background-size: contain;
 }
 
+.back-msg {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.toggle-btn {
+  display: flex;
+  margin-top: 35px;
+  margin-left: 10px;
+}
+
+.titleAndBtn {
+  display: flex;
+  align-items: center;
+}
+
 .signup__title {
-  position: absolute;
-  top: 6%;
-  left: 30%;
+  display: flex;
+  margin-top: 40px;
   color: white;
   font-weight: bold;
   font-size: 3rem;
@@ -96,21 +137,29 @@ const registerUser = async () => {
   letter-spacing: 15px;
 }
 
-.login__container {
-  position: absolute;
-  top: 15%;
+.signUp__container {
+  min-width: 320px;
   background-color: #fafafa;
   border-radius: 10px;
-  width: 40%;
   padding: 3rem;
+  margin: 0px 10px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="darkTheme"] .signUp__container {
+  background-color: #25273d;
+  color: #e3e4f1;
 }
 
 .textInput {
   border-radius: 5px;
-  border: 1px solid #9495a5;
+  border: 1px solid #4d5067;
   width: 100%;
   height: 2rem;
+}
+
+[data-theme="darkTheme"] .textInput {
+  background-color: #25273d;
 }
 
 .space-10 {
@@ -118,8 +167,7 @@ const registerUser = async () => {
 }
 
 input {
-  outline: 1px solid #e8e8e9;
-  padding: 0 5px;
+  padding: 0 8px;
 }
 
 input:focus {
@@ -128,7 +176,7 @@ input:focus {
   outline-offset: 1px;
 }
 
-.login__btn {
+.join__btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,5 +187,54 @@ input:focus {
   padding: 10px;
   border: none;
   margin-top: 20px;
+}
+
+@media (max-width: 738px) {
+  .main__container {
+    padding: 0 15%;
+    background: url("/images/bg-mobile-light.jpg");
+    background-color: #fafafa;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  [data-theme="darkTheme"] .main__container {
+    background: url("/images/bg-mobile-dark.jpg");
+    background-color: #171823;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .signup__title {
+    font-size: 1.5rem;
+    top: 6%;
+    left: 20%;
+  }
+
+  .toggle-btn {
+    top: 8%;
+    right: 20%;
+  }
+}
+
+@media (min-width: 739px) {
+  .signUp__container {
+    top: 25%;
+    background-color: #fafafa;
+    border-radius: 10px;
+    width: 40%;
+    padding: 3rem;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 347px) {
+  .signup__title {
+    margin-top: 40px;
+    letter-spacing: 10px;
+  }
+  .signUp__container {
+    top: 15%;
+  }
 }
 </style>
