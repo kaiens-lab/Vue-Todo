@@ -201,4 +201,10 @@ const emit = defineEmits(["removeTodo", "toggle-todo"]);
 [data-theme="darkTheme"] .btn__cross {
   color: #979797;
 }
+
+@media (min-width: 568px) and (max-width: 738px) {
+  .remind-msg {
+    color: #fafafa;
+  }
+}
 </style>
