@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./AppFooter.vue";
+import "../styles/auth.css";
 
 const email = ref("");
 const password = ref("");
@@ -37,12 +38,9 @@ const toSignUp = () => {
 </script>
 <template>
   <div>
-    <div
-      class="main__container flex flex-col items-center bg-light-bg dark:bg-dark-bg"
-      :class="{ dark: isDarkMode }"
-    >
+    <div class="main__container">
       <div class="flex items-center">
-        <h2 class="login__title">LOGIN</h2>
+        <h2 class="title sm:mr-5">LOGIN</h2>
         <div class="flex mt-8">
           <button
             class="btn bg-transparent border-none"
@@ -58,81 +56,31 @@ const toSignUp = () => {
         </div>
       </div>
 
-      <div class="login__container">
-        <p class="mb-2 text-[#494C6B] dark:text-light-text">Email</p>
-        <input v-model="email" class="mb-4 input-field" placeholder="Email" />
-        <p class="mb-2 text-[#494C6B] dark:text-light-text">PassWord</p>
+      <div class="auth-container">
+        <p class="text-[#494C6B] dark:text-light-text; mb-2">Email</p>
+        <input
+          type="email"
+          v-model="email"
+          class="input-field mb-4"
+          placeholder="Email"
+          required
+        />
+        <p class="auth-text mb-2">PassWord</p>
         <input
           v-model="password"
           class="input-field"
           placeholder="Password"
           type="password"
         />
-        <button class="login__btn" @click="loginUser()">Log in</button>
-        <p @click="toSignUp()" class="signup-link">New here? Join Now</p>
+        <button class="auth-btn" @click="loginUser()">Log in</button>
+        <p
+          @click="toSignUp()"
+          class="btn-base text-light-text hover:text-indigo-500"
+        >
+          New here? Join Now
+        </p>
       </div>
     </div>
   </div>
   <AppFooter />
 </template>
-<style scoped>
-.main__container {
-  width: 100vw;
-  min-height: 100vh;
-  background-image: url("/images/bg-desktop-light.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: relative;
-  padding-top: 50px;
-}
-
-[data-theme="darkTheme"] .main__container {
-  background-image: url("/images/bg-desktop-dark.jpg");
-}
-
-.btn-base {
-  @apply flex justify-center items-center cursor-pointer rounded-lg;
-}
-
-.signup-link {
-  @apply btn-base text-light-text hover:text-indigo-500;
-}
-
-.login__title {
-  @apply mt-10 text-white font-bold text-[3rem] leading-[4rem] tracking-[15px]
-  sm:text-[1.5rem] sm:mr-5;
-}
-
-.login__container {
-  @apply min-w-[320px] bg-light-bg rounded-lg mx-2.5 p-12 shadow-md 
-         dark:bg-dark-primary dark:text-dark-text;
-}
-
-.input-field {
-  @apply w-full h-8 border rounded-md px-2 border-light-border
-         focus:outline focus:outline-1 focus:outline-[#c7c8cd] focus:outline-offset-1 
-         dark:bg-dark-primary dark:placeholder-dark-border dark:border-dark-border;
-}
-
-.login__btn {
-  @apply btn-base w-full
-         p-2.5 border-none mt-5 mb-2 text-light-bg bg-indigo-500;
-}
-
-@media (max-width: 738px) {
-  .main__container {
-    padding: 0 15%;
-    background: url("/images/bg-mobile-light.jpg");
-    background-color: #fafafa;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  [data-theme="darkTheme"] .main__container {
-    background: url("/images/bg-mobile-dark.jpg");
-    background-color: #171823;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-}
-</style>
