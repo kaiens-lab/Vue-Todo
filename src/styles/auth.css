@@ -1,0 +1,56 @@
+.main__container {
+  @apply w-screen min-h-screen flex flex-col items-center bg-light-bg dark:bg-dark-bg;
+  background-image: url("/images/bg-desktop-light.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  padding-top: 50px;
+}
+
+[data-theme="darkTheme"] .main__container {
+  background-image: url("/images/bg-desktop-dark.jpg");
+}
+
+.title {
+  @apply mt-10 text-white font-bold text-[1.5rem] leading-[4rem] tracking-[15px];
+}
+
+.auth-container {
+  @apply min-w-[320px] bg-light-bg rounded-lg mx-2.5 p-12 shadow-md 
+           dark:bg-dark-primary dark:text-dark-text;
+}
+
+.input-field {
+  @apply w-full h-8 border rounded-md px-2 border-light-border
+           focus:outline focus:outline-1 focus:outline-[#c7c8cd] focus:outline-offset-1 
+           dark:bg-dark-primary dark:placeholder-dark-border dark:border-dark-border;
+}
+
+.auth-text {
+  @apply text-[#494C6B] dark:text-light-text;
+}
+
+.btn-base {
+  @apply flex justify-center items-center cursor-pointer rounded-lg;
+}
+
+.auth-btn {
+  @apply btn-base w-full p-2.5 border-none mt-5 mb-2 text-light-bg bg-indigo-500;
+}
+
+@media (max-width: 738px) {
+  .main__container {
+    padding: 0 15%;
+    background: url("/images/bg-mobile-light.jpg");
+    background-color: #fafafa;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  [data-theme="darkTheme"] .main__container {
+    background: url("/images/bg-mobile-dark.jpg");
+    background-color: #171823;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
