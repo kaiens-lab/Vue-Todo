@@ -35,6 +35,7 @@ const themeStore = useThemeStore();
           :todos="todoStore.filteredTodos"
           :itemsLeft="itemsLeft"
           :clear-completed="clearCompleted"
+          :isDarkMode="themeStore.isDarkMode"
         />
 
         <TodoFilter
