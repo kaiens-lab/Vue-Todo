@@ -67,7 +67,7 @@ const logout = async () => {
       <input
         v-model="inputValue"
         type="text"
-        class="todo-input"
+        class="todo-input w-[100%] bg-transparent"
         placeholder="Create a new todo..."
         @keyup.enter="submitTodo"
       />
