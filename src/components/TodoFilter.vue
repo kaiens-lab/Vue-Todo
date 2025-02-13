@@ -44,13 +44,13 @@ const completedTodos = () => {
 }
 
 .todoFilter {
-  @apply inline-flex items-center relative p-4 rounded-md 
+  @apply inline-flex items-center relative py-4  rounded-md
          bg-light-bg text-light-text bg-transparent 
          left-[45%] -translate-x-1/2 -translate-y-[110%] dark:bg-dark-primary ;
 }
 
 .todoFilter label {
-  @apply bg-transparent ml-6 mr-6;
+  @apply bg-transparent translate-x-4  -translate-y-1 pr-6;
 
 }
 
