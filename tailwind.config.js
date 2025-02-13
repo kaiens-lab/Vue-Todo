@@ -14,8 +14,12 @@ export default {
           primary: "#25273d",
           secondary: "#393a4b",
           border: "#4d5067",
-          text: "#C8CBE7",
+          text: "#c4c4c5",
         },
+      },
+      screens: {
+        "custom-md": "568px",
+        "custom-lg": { max: "738px" },
       },
     },
   },
