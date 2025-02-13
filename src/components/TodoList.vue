@@ -1,210 +1,125 @@
 <script setup>
+import { storeToRefs } from "pinia";
 import { useTodoStore } from "../stores/todoStore";
+import { useThemeStore } from "../stores/darkModeStore";
 const props = defineProps({
   todos: Array,
   itemsLeft: Number,
   clearCompleted: Function,
+  isDarkMode: Boolean,
 });
 
 const todoStore = useTodoStore();
+const themeStore = useThemeStore();
+const { isDarkMode } = storeToRefs(themeStore);
 
 const emit = defineEmits(["removeTodo", "toggle-todo"]);
 </script>
 
 <template>
-  <div v-if="todoStore.filteredTodos.length === 0" class="remind-msg">
+  <div
+    v-if="todoStore.filteredTodos.length === 0"
+    class="centered text-light-text bg-transparent rounded-[5px] mb-5 custom-md:text-light-bg custom-lg:text-light-bg;"
+  >
     No tasks yet, start planning your day now!
   </div>
-  <div class="todo__list">
+  <div
+    class="theme-bg border-t border-l border-r border-light-border dark:border-dark-secondary rounded-t-[5px] shadow-md"
+  >
     <ul>
-      <li v-for="(todo, index) in todoStore.filteredTodos" :key="todo.id">
+      <li
+        v-for="(todo, index) in todoStore.filteredTodos"
+        :key="todo.id"
+        class="flex-between todo__item group"
+      >
         <div
-          class="todoBtnAndtext"
+          class="centered text-light-text"
           :class="{
             completed: todo.isCompleted,
           }"
         >
           <button
-            class="btn btn__check"
+            class="btn btn__check centered border border-light-border hover:border-[#c058f3]"
             :class="{
               todo__checked: todo.isCompleted,
             }"
             @click="todoStore.toggleTodoStatus(todo.id)"
           >
-            <img src="/images/icon-check.svg" />
+            <img src="/images/icon-check.svg" class="scale-hide dark:scale-0" />
           </button>
 
           {{ todo.text }}
         </div>
-        <button class="btn__cross" @click="todoStore.removeTodo(todo.id)">
+        <button
+          class="centered scale-hide scale-0 group-hover:scale-100 dark:group-hover:scale-100"
+          @click="todoStore.removeTodo(todo.id)"
+        >
           <img src="/images/icon-cross.svg" />
         </button>
       </li>
     </ul>
 
-    <div class="itemsLeftAndClear">
+    <div
+      class="theme-bg flex-between rounded-t-[5px] shadow-md w-full p-8 px-4;"
+    >
       <p class="btn">
         <span>{{ itemsLeft }}</span> item(s) left
       </p>
-      <button class="btn btn--clear" @click="props.clearCompleted">
-        Clear Completed
-      </button>
+      <button class="btn" @click="props.clearCompleted">Clear Completed</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.remind-msg {
-  color: #9495a5;
-  background: transparent;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+.centered {
+  @apply flex items-center justify-center;
 }
 
-.itemsLeftAndClear {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fafafa;
-  padding: 2rem 1rem;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+.flex-between {
+  @apply flex items-center justify-between;
 }
 
-.todo__list {
-  background-color: #fafafa;
-  border-top: 1px solid #e3e4f1;
-  border-left: 1px solid #e3e4f1;
-  border-right: 1px solid #e3e4f1;
-
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+.theme-bg {
+  @apply bg-light-bg dark:bg-dark-primary;
 }
 
-[data-theme="darkTheme"] .todo__list {
-  background: #25273d;
+.btn-transparent {
+  @apply cursor-pointer bg-transparent;
 }
 
-[data-theme="darkTheme"] .itemsLeftAndClear {
-  background: #25273d;
+.scale-hide {
+  @apply transition-transform duration-500 ease-in-out;
 }
 
-.todo__list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #393a4b;
-  padding: 1rem 1.5rem;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #e3e4f1;
-}
-
-[data-theme="darkTheme"] .todo__list {
-  border-top: 1px solid #393a4b;
-  border-left: 1px solid #393a4b;
-  border-right: 1px solid #393a4b;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-.todo__list li:hover .btn__cross {
-  transform: scale(1);
-}
-
-[data-theme="darkTheme"] .todo__list li {
-  color: #c4c4c5;
-  border-bottom: 1px solid #393a4b;
-}
-
-.todoBtnAndtext {
-  display: flex;
-  align-items: center;
-  width: 80%;
+.todo__item {
+  @apply text-dark-secondary dark:text-dark-text 
+         border-b border-light-border dark:border-dark-secondary 
+         p-4 px-6 mb-2;
 }
 
 .btn {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  color: #9495a5;
-  font-size: 1rem;
-  line-height: 1%;
-  font-family: inherit;
+  @apply btn-transparent text-light-text text-base leading-none;
 }
 
 .btn__check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  margin-right: 20px;
-  border: 1px solid #e3e4f1 !important;
-  border-radius: 50%;
-  flex: 0 0 auto;
-  cursor: pointer;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.btn__check:hover {
-  border-color: #c058f3 !important;
-}
-
-[data-theme="darkTheme"] .btn__check img {
-  transform: scale(0);
-  transition: transform 0.5s ease-in-out;
+  @apply w-[25px] h-[25px] mr-5 
+         border border-light-border hover:border-[#c058f3]
+         rounded-full 
+         flex-none cursor-pointer 
+         transition-colors duration-300
+         dark:border-dark-border;
 }
 
 .completed {
-  text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: #c4c4c5;
-  color: #c4c4c5;
-}
-
-[data-theme="darkTheme"] .completed {
-  text-decoration-color: #4d5067;
-  color: #4d5067;
-}
-
-.completed .todoBtnAndtext {
-  color: #c4c4c5;
+  @apply line-through text-dark-text dark:text-dark-border 
+         decoration-1 dark:decoration-dark-border;
 }
 
 .todo__checked {
-  background: linear-gradient(to right, #55ddff, #c058f3);
+  @apply bg-gradient-to-r from-[#55ddff] to-[#c058f3];
 }
+
 [data-theme="darkTheme"] .todo__checked img {
-  transform: scale(1);
-}
-
-.btn__cross {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  border: none;
-  background-color: transparent; /* 讓背景透明 */
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  transform: scale(0);
-  transition: transform 0.5s ease-in-out;
-}
-
-[data-theme="darkTheme"] .btn__cross {
-  color: #979797;
-}
-
-@media (min-width: 568px) and (max-width: 738px) {
-  .remind-msg {
-    color: #fafafa;
-  }
+  @apply scale-100;
 }
 </style>
