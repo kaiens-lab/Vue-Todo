@@ -15,6 +15,7 @@ import AppFooter from "./AppFooter.vue";
 const email = ref("");
 const username = ref("");
 const password = ref("");
+const errorMessage = ref("");
 const router = useRouter();
 const themeStore = useThemeStore();
 const { isDarkMode } = storeToRefs(themeStore);
@@ -30,18 +31,34 @@ const registerUser = async () => {
     await updateProfile(userCredential.user, {
       displayName: username.value,
     });
+
     console.log("註冊成功:", userCredential.user);
 
-    //立即登出，確保用戶不會保持登入狀態
     await signOut(auth);
     console.log("已登出，請使用者手動登入");
 
     alert("註冊成功! 現在您可以登入了");
-    router.push("/");
+    router.push("/login");
   } catch (error) {
-    console.error("註冊錯誤:", error.message);
+    console.error("註冊失敗:", error);
+
+    // 錯誤情況
+    switch (error.code) {
+      case "auth/email-already-in-use":
+        errorMessage.value = "此 Email 已被註冊，請使用其他 Email。";
+        break;
+      case "auth/weak-password":
+        errorMessage.value = "密碼強度不足，請輸入至少 6 個字元。";
+        break;
+      case "auth/invalid-email":
+        errorMessage.value = "Email 格式不正確，請重新輸入。";
+        break;
+      default:
+        errorMessage.value = "註冊失敗，請稍後再試。";
+    }
   }
 };
+
 const toLogin = () => {
   router.push("/");
 };
@@ -76,6 +93,7 @@ const toLogin = () => {
           placeholder="Email"
           required
         />
+
         <p class="auth-text mb-2">Username</p>
         <input
           type="text"
@@ -92,6 +110,10 @@ const toLogin = () => {
           placeholder="Password"
           required
         />
+        <p v-if="errorMessage" class="text-red-600 text-sm mt-2">
+          {{ errorMessage }}
+        </p>
+
         <button class="auth-btn" @click="registerUser">Join Todo App</button>
         <p
           @click="toLogin()"
