@@ -10,9 +10,14 @@ import {
 } from "firebase/firestore";
 import { useUserStore } from "./userStore"; // 引入 userStore 來取得 userId
 
+interface TodoItem {
+  id?: string;
+  isCompleted?: boolean;
+}
+
 export const useTodoStore = defineStore("todoStore", {
   state: () => ({
-    todos: [],
+    todos: [] as TodoItem[],
     filterStatus: "all",
   }),
 
@@ -36,7 +41,7 @@ export const useTodoStore = defineStore("todoStore", {
       const userStore = useUserStore();
       if (!userStore.userId) return;
       const db = getFirestore();
-      const todosRef = collection(
+      const todosRef = collection<TodoItem, TodoItem>(
         doc(collection(db, "todos"), userStore.userId),
         "tasks"
       );
@@ -55,7 +60,7 @@ export const useTodoStore = defineStore("todoStore", {
       }
     },
 
-    async addTodo(text) {
+    async addTodo(text: string) {
       const userStore = useUserStore();
       if (!userStore.userId) return;
       const db = getFirestore();
@@ -72,7 +77,7 @@ export const useTodoStore = defineStore("todoStore", {
       }
     },
 
-    async toggleTodoStatus(id) {
+    async toggleTodoStatus(id: string) {
       const userStore = useUserStore();
       if (!userStore.userId) return;
       const db = getFirestore();
@@ -92,7 +97,7 @@ export const useTodoStore = defineStore("todoStore", {
       }
     },
 
-    async removeTodo(id) {
+    async removeTodo(id: string) {
       const userStore = useUserStore();
       if (!userStore.userId) return;
       const db = getFirestore();
@@ -114,7 +119,7 @@ export const useTodoStore = defineStore("todoStore", {
       }
     },
 
-    handleFilterChange(status) {
+    handleFilterChange(status: string) {
       this.filterStatus = status;
     },
 
@@ -122,15 +127,18 @@ export const useTodoStore = defineStore("todoStore", {
       const userStore = useUserStore();
       if (!userStore.userId) return;
       const db = getFirestore();
+      const tasksRef = collection<TodoItem, TodoItem>(
+        doc(collection(db, "todos"), userStore.userId!),
+        "tasks"
+      );
 
       try {
         // 刪除 Firestore 中的已完成任務
+        if (!userStore.userId) return;
         await Promise.all(
           this.todos
             .filter((todo) => todo.isCompleted)
-            .map((todo) =>
-              deleteDoc(doc(db, "todos", userStore.userId, "tasks", todo.id))
-            )
+            .map((todo) => deleteDoc(doc(tasksRef, todo.id!)))
         );
 
         // 更新本地狀態
