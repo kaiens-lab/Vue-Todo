@@ -1,9 +1,4 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "AppFooter",
-});
-</script>
+<script setup lang="ts"></script>
 <template>
   <footer class="relative w-full py-4 flex justify-center dark:bg-[#171823]">
     <div class="text-[0.85rem] text-[#393a4b]">
