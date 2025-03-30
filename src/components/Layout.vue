@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useThemeStore } from "../stores/darkModeStore";
 import { useTodoStore } from "../stores/todoStore";
