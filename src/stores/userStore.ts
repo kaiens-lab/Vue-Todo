@@ -5,7 +5,7 @@ import { useTodoStore } from "./todoStore"; // 引入 todoStore 來確保登入�
 export const useUserStore = defineStore("user", {
   state: () => ({
     username: "Guest",
-    userId: null,
+    userId: null as string | null,
   }),
 
   persist: true, // 讓 username 不會在刷新時丟失
@@ -16,7 +16,8 @@ export const useUserStore = defineStore("user", {
       onAuthStateChanged(auth, async (user) => {
         const todoStore = useTodoStore();
         if (user) {
-          this.username = user.displayName || user.email.split("@")[0];
+          this.username =
+            user.displayName || user.email?.split("@")[0] || "Guest";
           this.userId = user.uid;
           await todoStore.fetchTodos(); // 讀取該使用者的 Firestore 待辦事項
         } else {
