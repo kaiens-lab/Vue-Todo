@@ -10,19 +10,30 @@ import {
 } from "firebase/firestore";
 import { useUserStore } from "./userStore"; // 引入 userStore 來取得 userId
 
+interface TodoState {
+  todos: Todo[];
+  filterStatus: "all" | "active" | "completed";
+}
+
 interface TodoItem {
   id?: string;
   isCompleted?: boolean;
 }
 
+interface Todo {
+  id: string;
+  text: string;
+  isCompleted?: boolean;
+}
+
 export const useTodoStore = defineStore("todoStore", {
-  state: () => ({
-    todos: [] as TodoItem[],
+  state: (): TodoState => ({
+    todos: [],
     filterStatus: "all",
   }),
 
   getters: {
-    filteredTodos(state) {
+    filteredTodos(state): Todo[] {
       if (state.filterStatus === "active") {
         return state.todos.filter((todo) => !todo.isCompleted);
       } else if (state.filterStatus === "completed") {
@@ -50,10 +61,14 @@ export const useTodoStore = defineStore("todoStore", {
         const snapshot = await getDocs(todosRef);
         this.todos = snapshot.empty
           ? []
-          : snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
+          : snapshot.docs.map((doc) => {
+              const data = doc.data();
+              return {
+                id: doc.id,
+                text: data.text,
+                isCompleted: data.isCompleted,
+              } as Todo;
+            });
         this.todos = [...this.todos];
       } catch (error) {
         console.error("讀取待辦事項時出錯:", error);
@@ -119,7 +134,7 @@ export const useTodoStore = defineStore("todoStore", {
       }
     },
 
-    handleFilterChange(status: string) {
+    handleFilterChange(status: "all" | "active" | "completed") {
       this.filterStatus = status;
     },
 
