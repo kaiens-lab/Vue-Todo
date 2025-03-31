@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onAuthStateChanged } from "firebase/auth";
 import { useUserStore } from "./stores/userStore";
 import { auth } from "./firebase";
@@ -18,4 +18,3 @@ onAuthStateChanged(auth, (user) => {
 <template>
   <router-view />
 </template>
-<style scoped></style>
