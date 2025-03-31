@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useTodoStore } from "../stores/todoStore";
 import { useThemeStore } from "../stores/darkModeStore";
@@ -11,7 +11,6 @@ const props = defineProps({
 
 const todoStore = useTodoStore();
 const themeStore = useThemeStore();
-const { isDarkMode } = storeToRefs(themeStore);
 
 const emit = defineEmits(["removeTodo", "toggle-todo"]);
 </script>
@@ -65,7 +64,9 @@ const emit = defineEmits(["removeTodo", "toggle-todo"]);
       <p class="btn">
         <span>{{ itemsLeft }}</span> item(s) left
       </p>
-      <button class="btn" @click="props.clearCompleted">Clear Completed</button>
+      <button class="btn" @click="() => props.clearCompleted?.()">
+        Clear Completed
+      </button>
     </div>
   </div>
 </template>
