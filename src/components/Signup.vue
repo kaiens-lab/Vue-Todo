@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import {
   createUserWithEmailAndPassword,
@@ -12,10 +12,10 @@ import { useThemeStore } from "../stores/darkModeStore";
 import "../styles/auth.css";
 import AppFooter from "./AppFooter.vue";
 
-const email = ref("");
-const username = ref("");
-const password = ref("");
-const errorMessage = ref("");
+const email = ref<string>("");
+const username = ref<string>("");
+const password = ref<string>("");
+const errorMessage = ref<string>("");
 const router = useRouter();
 const themeStore = useThemeStore();
 const { isDarkMode } = storeToRefs(themeStore);
@@ -39,7 +39,7 @@ const registerUser = async () => {
 
     alert("註冊成功! 現在您可以登入了");
     router.push("/login");
-  } catch (error) {
+  } catch (error: any) {
     console.error("註冊失敗:", error);
 
     // 錯誤情況
