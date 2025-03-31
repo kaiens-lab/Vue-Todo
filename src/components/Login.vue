@@ -8,8 +8,8 @@ import { useRouter } from "vue-router";
 import AppFooter from "./AppFooter.vue";
 import "../styles/auth.css";
 
-const email = ref("");
-const password = ref("");
+const email = ref<string>("");
+const password = ref<string>("");
 const router = useRouter();
 const themeStore = useThemeStore();
 const { isDarkMode } = storeToRefs(themeStore);
