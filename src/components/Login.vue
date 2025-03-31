@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { storeToRefs } from "pinia";
 import { useThemeStore } from "../stores/darkModeStore";
@@ -23,7 +23,7 @@ const loginUser = async () => {
     );
     console.log("登入成功:", userCredential.user);
     router.push("/todolist");
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === "auth/invalid-credential") {
       alert("帳號或密碼錯誤，請檢查輸入內容！");
     } else {
